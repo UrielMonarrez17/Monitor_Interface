@@ -12,6 +12,7 @@ namespace QuestCheckout
         public long dueUtc;
     }
 
+    //made by Pato23K
     [Serializable] public sealed class LoanData
     {
         public int version = 1;
