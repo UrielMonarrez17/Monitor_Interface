@@ -105,5 +105,8 @@ InitTestScene*.unity*
 # UI Toolkit auto generated files
 /UIElementsSchema/
 
+# Local PDF inspection output
+/tmp/
+
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
