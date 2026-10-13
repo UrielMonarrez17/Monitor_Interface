@@ -10,6 +10,18 @@ A Unity kiosk for borrowing six Meta Quest 3 kits at CIAC 2. The interface recre
 
 To create a Windows build, choose **Quest Checkout > Build Windows app**. It runs the logic checks and writes the runnable app to `Builds/Windows/`. Generated builds are excluded from Git; upload the complete build folder as a ZIP in a GitHub Release.
 
+## Edit the Unity Canvas
+
+The UI uses **Unity Canvas / uGUI**, with each element saved separately in the scene and in `Assets/QuestCheckout/Prefabs/QuestCheckoutCanvas.prefab`. It does not generate the interface when Play starts.
+
+Open `Assets/Scenes/QuestCheckout.unity` and expand **Quest Checkout Canvas > Screens - 1200 x 854**. The hierarchy contains Home, QuestKits, QuestUnavailable, GenericKits, Reservation, Review, Success, Waiting and Loading panels, plus the shared Home button, footer and test dialog. Each panel contains individually named text objects, photographs, buttons, checkbox objects and panther images.
+
+To edit a screen without entering Play mode, deactivate Home and activate the desired panel in the Inspector. Select any child to adjust its RectTransform, Image, Text, Button or Toggle. Return Home to active before saving. Runtime navigation chooses which saved panel to display. The Canvas Scaler uses a 1200 × 854 reference resolution and preserves the design proportions.
+
+Select a Button and inspect **Button > On Click ()** to see its saved target and action. The Toggle **On Value Changed** events are also saved in the Inspector. `PantherHover` exposes its artwork, selecting/stop images, zoom and speed. `PantherTransition` exposes its moving image and duration. You can edit the shared prefab in Prefab Mode or keep scene overrides.
+
+The editor-only `CanvasSceneAuthoring` utility performed the initial conversion to Canvas objects. Normal Play and builds use the saved scene/prefab and do not regenerate them, so layout edits are preserved. **Quest Checkout > Validate Canvas scene** checks the screen hierarchy and button wiring.
+
 ## Controls and checkout
 
 - Use a mouse or touchscreen. Tab and Shift+Tab move between controls; Enter/Space activate focused buttons and checkboxes.
@@ -42,10 +54,17 @@ This is a single-device classroom kiosk. It has no server, account authenticatio
 
 ## Code and verification
 
-- `Assets/QuestCheckout/QuestCheckoutApp.cs`: responsive UI Toolkit screens, navigation, checklist and receipt.
+- `Assets/Scenes/QuestCheckout.unity`: runnable scene with the Canvas prefab instance and EventSystem.
+- `Assets/QuestCheckout/Prefabs/QuestCheckoutCanvas.prefab`: all editable UI elements and Inspector event connections.
+- `Assets/QuestCheckout/QuestCheckoutApp.cs`: navigation and coordination of saved loan data; no runtime UI construction.
+- `InventoryScreen.cs` and `KitCardView.cs`: availability labels and kit photographs.
+- `ReservationForm.cs`: duration selection, contents checklist and form bindings.
+- `CheckoutDetailsView.cs`: review, receipt and next-return text bindings.
+- `PantherHover.cs` and `PantherTransition.cs`: independent hover and loading effects.
 - `Assets/QuestCheckout/LoanStore.cs`: six-kit inventory, validation and local persistence.
-- `Assets/QuestCheckout/Resources/`: style sheet and artwork extracted from the supplied Figma PDF.
+- `Assets/QuestCheckout/Resources/`: artwork extracted from the supplied Figma PDF.
 - `Assets/QuestCheckout/Editor/CheckoutBuild.cs`: scene creation, Windows build and automated logic verification.
+- `Assets/QuestCheckout/CanvasSmokeTest.cs`: optional runtime verification, enabled only by the `--checkout-smoke` launch argument.
 
 Run **Quest Checkout > Verify checkout logic** to check 90-minute checkout, invalid/unavailable kits, unsupported duration, incomplete contents, edited choices, saved data after restart, expiry, both resets, corrupt saves and write failures. This is developer verification; it does not replace the team's functional testing report or three-participant usability study.
 
