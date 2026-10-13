@@ -13,7 +13,7 @@ public class KitCardView : MonoBehaviour
     {
         artwork.sprite = available ? availableImage : unavailableImage;
         title.text = available ? (generic ? $"Generic VR {kit}" : $"Kit {kit}") : "Unavailable";
-        if (status != null) status.text = available ? "" : $"Kit {kit} • on loan";
+        if (status != null) status.text = available ? "" : $"Kit {kit} • on loan / reserved";
         hover.SetAvailable(available);
     }
 }

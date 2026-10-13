@@ -67,6 +67,15 @@ namespace QuestCheckout.Editor
             Reject(() => store.Checkout(3, 90, yes, now), "Unavailable kit");
             store.Reset(false, now);
             Assert(new LoanStore(path).AvailableCount(now) == 4, "Scenario reset persisted");
+            var tomorrow = now.ToLocalTime().Date.AddDays(1);
+            var reserved = store.Reserve(1, 90, yes, tomorrow, now);
+            Assert(new DateTime(reserved.startUtc, DateTimeKind.Utc).ToLocalTime() == tomorrow.AddHours(9), "Future pickup at 9 AM");
+            Assert(reserved.dueUtc - reserved.startUtc == TimeSpan.FromMinutes(90).Ticks, "Future duration");
+            Assert(!new LoanStore(path).Available(1, now), "Future reservation persists and holds kit");
+            Reject(() => store.Reserve(1, 90, yes, tomorrow.AddDays(1), now), "Cannot overwrite future reservation");
+            Reject(() => store.Reserve(3, 90, yes, tomorrow.AddDays(-2), now), "Past day rejected");
+            Reject(() => store.Reserve(3, 90, yes, tomorrow.AddDays(6), now), "Outside seven-day range rejected");
+            store.Reset(false, now);
             File.WriteAllText(path, "broken json");
             var damaged = new LoanStore(path);
             Assert(!damaged.CanWrite && damaged.AvailableCount(now) == 0, "Corrupt save blocks checkout");

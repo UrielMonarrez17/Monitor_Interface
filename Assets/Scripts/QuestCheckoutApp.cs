@@ -22,6 +22,8 @@ public class QuestCheckoutApp : MonoBehaviour
     public bool Generic { get; private set; }
     public int SelectedKit { get; private set; } = 1;
     public int Duration { get; private set; } = 90;
+    public DateTime ReservationDay { get; private set; } = DateTime.Today;
+    public DateTime ReservationStart => ReservationDay == DateTime.Today ? DateTime.UtcNow : ReservationDay.AddHours(9).ToUniversalTime();
     public KitLoan LastReceipt { get; private set; }
     public string Page { get; private set; }
     public LoanStore CurrentStore => Generic ? GenericStore : QuestStore;
@@ -92,6 +94,7 @@ public class QuestCheckoutApp : MonoBehaviour
     }
 
     public void SetDuration(int minutes) { Duration = minutes; reservation.Refresh(); }
+    public void SetReservationDay(int index) { ReservationDay = DateTime.Today.AddDays(index); reservation.Refresh(); }
     public void ChangeKit() => Navigate(InventoryPage);
 
     public void ReviewChoices()
@@ -101,7 +104,7 @@ public class QuestCheckoutApp : MonoBehaviour
     }
 
     public void EditChoices() => ShowPage("Reservation");
-    public void Confirm() => Attempt(() => { LastReceipt = CurrentStore.Checkout(SelectedKit, Duration, reservation.Verified, DateTime.UtcNow); ShowPage("Success"); });
+    public void Confirm() => Attempt(() => { LastReceipt = CurrentStore.Reserve(SelectedKit, Duration, reservation.Verified, ReservationDay, DateTime.UtcNow); ShowPage("Success"); });
     public void BackToInventory() => Navigate(InventoryPage);
     public void RefreshAvailability() => ShowPage(QuestStore.AvailableCount(DateTime.UtcNow) > 0 ? "QuestKits" : "Waiting");
     public void UnavailableCategory() => ShowAlert("This category is unavailable at this kiosk. Please visit CIAC 2.");
@@ -131,7 +134,7 @@ public class QuestCheckoutApp : MonoBehaviour
 
     void ResetScenario(bool busy)
     {
-        Attempt(() => { QuestStore.Reset(busy, DateTime.UtcNow); GenericStore.Reset(false, DateTime.UtcNow); SelectedKit = 1; Duration = 90; LastReceipt = null; reservation.ClearChecklist(); ShowPage("QuestKits"); });
+        Attempt(() => { QuestStore.Reset(busy, DateTime.UtcNow); GenericStore.Reset(false, DateTime.UtcNow); SelectedKit = 1; Duration = 90; ReservationDay = DateTime.Today; LastReceipt = null; reservation.ClearChecklist(); ShowPage("QuestKits"); });
     }
 
     void Attempt(Action action) { try { action(); } catch (Exception ex) { ShowAlert(ex.Message); Debug.LogWarning(ex.Message); } }
