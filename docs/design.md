@@ -6,8 +6,6 @@ Kiosk to borrow lab equipment (Meta Quest 3 kits, cameras, EEG headsets, electro
 
 ### 1. Show availability and always give a next step
 
-![All kits on loan](desingImgs/Captura%20de%20pantalla%202026-10-13%20102503.png)
-
 - Problem: when no kit is available, "Unavailable" alone doesn't tell the user what to do.
 - Principle: visibility of system status (Nielsen).
 - Design: the screen shows "0 of 6 kits available", the next return time, and two buttons ("Check next availability" and "Other Options"). It refreshes every 15 seconds.
