@@ -88,6 +88,16 @@ public class LoanStore
 
     LoanData Clone() => JsonUtility.FromJson<LoanData>(JsonUtility.ToJson(Data));
 
+    public KitLoan Reserve(int kit, int minutes, bool[] verified, DateTime day, DateTime now)
+    {
+        var today = now.ToLocalTime().Date;
+        if (day.Date < today || day.Date > today.AddDays(6)) throw new InvalidOperationException("Choose today or one of the next six days.");
+        // One outstanding reservation per kit; never overwrite an existing hold.
+        if (!Available(kit, now)) throw new InvalidOperationException("This kit is already on loan or reserved. Choose another kit.");
+        var start = day.Date == today ? now : DateTime.SpecifyKind(day.Date.AddHours(9), DateTimeKind.Local).ToUniversalTime();
+        return Checkout(kit, minutes, verified, start);
+    }
+
     public void Reset(bool allBusy, DateTime now)
     {
         var next = Empty();

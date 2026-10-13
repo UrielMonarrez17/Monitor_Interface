@@ -18,7 +18,7 @@ public class InventoryScreen : MonoBehaviour
         if (nextReturn != null)
         {
             nextReturn.gameObject.SetActive(count == 0 && store.CanWrite);
-            nextReturn.text = (generic ? "Next return: " : "All six kits are on loan. Next return: ") + QuestCheckoutApp.Format(store.NextAvailable(DateTime.UtcNow));
+            nextReturn.text = (generic ? "Next return: " : "All six kits are on loan or reserved. Next return: ") + QuestCheckoutApp.Format(store.NextAvailable(DateTime.UtcNow));
         }
     }
 }

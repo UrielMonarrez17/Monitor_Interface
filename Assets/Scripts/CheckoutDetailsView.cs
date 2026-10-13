@@ -17,18 +17,18 @@ public class CheckoutDetailsView : MonoBehaviour
         {
             artwork.sprite = app.Generic ? genericKit : questKit;
             heading.text = app.KitName;
-            details.text = $"Duration: {app.Duration} minutes\nPick up at: {LoanStore.Pickup}\nEstimated return: {QuestCheckoutApp.Format(DateTime.UtcNow.AddMinutes(app.Duration))}\n\nVerified: 1 headset, {(app.Generic ? "1 controller" : "2 controllers")}, 1 charger";
+            details.text = $"Duration: {app.Duration} minutes\nPick up at: {LoanStore.Pickup}\nStart: {QuestCheckoutApp.Format(app.ReservationStart)}\nReturn: {QuestCheckoutApp.Format(app.ReservationStart.AddMinutes(app.Duration))}\n\nVerified: 1 headset, {(app.Generic ? "1 controller" : "2 controllers")}, 1 charger";
         }
         else if (view == View.Receipt)
         {
             heading.text = "Pick up at: " + LoanStore.Pickup;
             details.text = "Return: " + QuestCheckoutApp.Format(new DateTime(app.LastReceipt.dueUtc, DateTimeKind.Utc));
-            caption.text = $"{app.KitName} • {app.Duration} minutes • Reservation saved";
+            caption.text = $"{app.KitName} • Pickup: {QuestCheckoutApp.Format(new DateTime(app.LastReceipt.startUtc, DateTimeKind.Utc))} • Saved";
         }
         else
         {
             bool available = app.QuestStore.AvailableCount(DateTime.UtcNow) > 0;
-            heading.text = available ? "A kit is now available" : "All six Quest 3 kits are currently on loan.";
+            heading.text = available ? "A kit is now available" : "All six Quest 3 kits are on loan or reserved.";
             details.text = available ? "Return to the kit list to start your checkout." : "Earliest return: " + QuestCheckoutApp.Format(app.QuestStore.NextAvailable(DateTime.UtcNow)) + "\nFor immediate help or other equipment, visit CIAC 2.";
             actionLabel.text = available ? "Choose an available kit" : "Refresh availability";
         }
