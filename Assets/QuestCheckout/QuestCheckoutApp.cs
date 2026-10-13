@@ -39,7 +39,7 @@ namespace QuestCheckout
             var doc = gameObject.AddComponent<UIDocument>();
             doc.panelSettings = panel;
             root = doc.rootVisualElement;
-            root.style.backgroundColor = Color.white;
+            root.style.backgroundColor = new Color(0.04f, 0.04f, 0.047f);
             root.style.flexGrow = 1;
             stage = new VisualElement();
             stage.style.width = 1200;
@@ -80,7 +80,7 @@ namespace QuestCheckout
         {
             var label = new Label(text); label.AddToClassList("text");
             Place(label, x, y, w, h); label.style.fontSize = size;
-            if (bold) label.style.unityFontStyleAndWeight = FontStyle.Bold;
+            if (bold) label.AddToClassList("bold");
             parent.Add(label); return label;
         }
         VisualElement Picture(VisualElement parent, string name, float x, float y, float w, float h)

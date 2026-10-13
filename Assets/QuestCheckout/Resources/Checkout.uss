@@ -1,27 +1,57 @@
-.text { color: rgb(6, 6, 6); -unity-text-align: middle-center; white-space: normal; margin: 0; padding: 0; }
-.muted { color: rgb(92, 100, 105); }
-.footer { color: rgb(125, 132, 137); -unity-text-align: middle-left; letter-spacing: 1px; }
-Button { margin: 0; border-width: 0; padding: 0; -unity-font-style: bold; -unity-text-align: middle-center; font-size: 27px; white-space: normal; border-radius: 17px; }
-Button.primary, Button.selected { background-color: rgb(105, 162, 184); color: white; }
-Button.primary:hover, Button.selected:hover { background-color: rgb(78, 140, 164); }
-Button.primary:active, Button.selected:active { background-color: rgb(48, 107, 131); }
-Button.secondary { border-width: 2px; border-color: rgb(105, 162, 184); background-color: white; color: rgb(52, 106, 127); font-size: 22px; border-radius: 10px; }
-Button.secondary:hover { background-color: rgb(231, 243, 247); }
-Button.category, Button.kit, Button.icon-button { background-color: white; color: black; border-radius: 8px; }
-Button.icon-button:hover { background-color: rgb(239, 247, 250); }
-.hover-art { transition-property: scale; transition-duration: 0.16s; scale: 1 1; }
-.panther-hover .hover-art { scale: 1.15 1.15; }
-Button.category:focus, Button.kit:focus, Button.icon-button:focus, Button.primary:focus, Button.secondary:focus, Button.selected:focus, Button.quiet:focus { border-width: 3px; border-color: rgb(37, 91, 117); }
-Button:disabled { opacity: 0.5; }
+/* ---------- Texto ---------- */
+.text { color: rgb(245, 246, 247); -unity-text-align: middle-center; white-space: normal; margin: 0; padding: 0; }
+.muted { color: rgb(150, 157, 163); }
+.footer { color: rgb(110, 116, 122); -unity-text-align: middle-left; letter-spacing: 1px; }
+
+/* ---------- Botones base ---------- */
+Button { margin: 0; border-width: 0; padding: 0; -unity-font-style: bold; -unity-text-align: middle-center; font-size: 26px; white-space: normal; border-radius: 12px; }
+
+Button.primary, Button.selected { background-color: rgb(125, 185, 208); color: rgb(10, 10, 12); }
+Button.primary:hover, Button.selected:hover { background-color: rgb(150, 201, 221); }
+Button.primary:active, Button.selected:active { background-color: rgb(100, 160, 185); }
+
+Button.secondary { border-width: 1px; border-color: rgb(70, 74, 80); background-color: transparent; color: rgb(125, 185, 208); font-size: 22px; border-radius: 10px; }
+Button.secondary:hover { background-color: rgb(30, 32, 36); border-color: rgb(125, 185, 208); }
+
+Button.category, Button.kit { background-color: rgb(22, 23, 26); color: rgb(245, 246, 247); border-width: 1px; border-color: rgb(46, 49, 54); border-radius: 14px; }
+Button.category:hover, Button.kit:hover { background-color: rgb(30, 32, 36); border-color: rgb(80, 85, 92); }
+Button.icon-button { background-color: transparent; color: rgb(245, 246, 247); border-radius: 12px; }
+Button.icon-button:hover { background-color: rgb(30, 32, 36); }
+
+Button.quiet { background-color: transparent; color: rgb(150, 157, 163); font-size: 14px; border-radius: 8px; }
+Button.quiet:hover { background-color: rgb(30, 32, 36); color: rgb(245, 246, 247); }
+
+Button.category:focus, Button.kit:focus, Button.icon-button:focus, Button.primary:focus, Button.secondary:focus, Button.selected:focus, Button.quiet:focus { border-width: 2px; border-color: rgb(245, 246, 247); }
+
+Button:disabled { opacity: 0.4; }
 Button.kit:disabled { opacity: 1; }
-Button.quiet { background-color: rgb(244, 247, 248); color: rgb(86, 108, 116); font-size: 14px; border-radius: 6px; }
-.card { background-color: rgb(248, 248, 248); border-radius: 17px; border-width: 1px; border-color: rgb(237, 237, 237); overflow: hidden; }
-.card-header { background-color: rgb(105, 162, 184); color: white; }
+
+.hover-art { transition-property: scale; transition-duration: 0.16s; scale: 1 1; }
+.panther-hover .hover-art { scale: 1.1 1.1; }
+
+/* ---------- Tarjetas ---------- */
+.card { background-color: rgb(22, 23, 26); border-radius: 16px; border-width: 1px; border-color: rgb(46, 49, 54); overflow: hidden; }
+.card-header { background-color: transparent; color: rgb(245, 246, 247); border-bottom-width: 1px; border-bottom-color: rgb(46, 49, 54); }
 .selected { font-size: 22px; border-radius: 10px; }
-.check { color: rgb(20, 25, 28); font-size: 22px; }
+
+/* ---------- Checklist ---------- */
+.check { color: rgb(245, 246, 247); font-size: 22px; }
 .check .unity-toggle__input { background-color: transparent; border-width: 0; }
-.check .unity-toggle__checkmark { background-color: white; border-width: 2px; border-color: rgb(105, 162, 184); border-radius: 5px; width: 29px; height: 29px; }
+.check .unity-toggle__checkmark { background-color: transparent; border-width: 2px; border-color: rgb(125, 185, 208); border-radius: 6px; width: 29px; height: 29px; }
+.check .unity-toggle__input:checked > .unity-toggle__checkmark { background-color: rgb(125, 185, 208); }
 .check .unity-toggle__text { margin-left: 12px; }
-.check:focus { background-color: rgb(231, 243, 247); }
-.overlay { background-color: rgba(25, 44, 52, 0.35); }
-.alert { color: rgb(150, 44, 30); background-color: rgb(255, 240, 235); border-radius: 6px; }
+.check:focus { background-color: rgb(30, 32, 36); }
+
+/* ---------- Overlay y alertas ---------- */
+.overlay { background-color: rgba(0, 0, 0, 0.65); }
+.alert { color: rgb(255, 170, 155); background-color: rgb(58, 24, 20); border-radius: 8px; }
+
+/* ---------- Tipografía ---------- */
+Label, Button, Toggle, .unity-toggle__text {
+    -unity-font-definition: url("project:///Assets/QuestCheckout/Fonts/Outfit-Regular.ttf");
+}
+Button, .bold {
+    -unity-font-definition: url("project:///Assets/QuestCheckout/Fonts/Outfit-SemiBold.ttf");
+    -unity-font-style: normal;
+}
+.bold { letter-spacing: 0.5px; }
