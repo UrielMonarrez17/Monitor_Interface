@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace QuestCheckout.Editor
 {
@@ -36,38 +35,7 @@ namespace QuestCheckout.Editor
         [MenuItem("Quest Checkout/Create or open checkout scene")]
         public static void CreateScene()
         {
-            foreach (var guid in AssetDatabase.FindAssets("t:Texture2D", new[] { "Assets/QuestCheckout/Resources" }))
-            {
-                var texture = AssetImporter.GetAtPath(AssetDatabase.GUIDToAssetPath(guid)) as TextureImporter;
-                if (texture == null) continue;
-                if (texture.npotScale == TextureImporterNPOTScale.None && !texture.mipmapEnabled && texture.textureCompression == TextureImporterCompression.Uncompressed) continue;
-                texture.npotScale = TextureImporterNPOTScale.None;
-                texture.mipmapEnabled = false;
-                texture.textureCompression = TextureImporterCompression.Uncompressed;
-                texture.maxTextureSize = 2048;
-                texture.SaveAndReimport();
-            }
-            const string panelPath = "Assets/QuestCheckout/Resources/CheckoutPanel.asset";
-            var panel = AssetDatabase.LoadAssetAtPath<PanelSettings>(panelPath);
-            if (panel == null)
-            {
-                panel = ScriptableObject.CreateInstance<PanelSettings>();
-                panel.scaleMode = PanelScaleMode.ConstantPixelSize;
-                panel.themeStyleSheet = AssetDatabase.LoadAssetAtPath<ThemeStyleSheet>("Assets/QuestCheckout/Resources/CheckoutTheme.tss");
-                AssetDatabase.CreateAsset(panel, panelPath);
-            }
-            if (File.Exists(Scene)) EditorSceneManager.OpenScene(Scene);
-            else
-            {
-                var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
-                new GameObject("Quest Checkout", typeof(QuestCheckoutApp));
-                var camera = new GameObject("Camera", typeof(Camera)).GetComponent<Camera>();
-                camera.clearFlags = CameraClearFlags.SolidColor;
-                camera.backgroundColor = Color.white;
-                camera.orthographic = true;
-                camera.transform.position = new Vector3(0, 0, -10);
-                EditorSceneManager.SaveScene(scene, Scene);
-            }
+            CanvasSceneAuthoring.EnsureScene();
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(Scene, true) };
             AssetDatabase.SaveAssets();
         }
