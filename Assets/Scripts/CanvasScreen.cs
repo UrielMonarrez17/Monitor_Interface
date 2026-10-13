@@ -1,5 +1,6 @@
 using UnityEngine;
-namespace QuestCheckout
+
+public class CanvasScreen : MonoBehaviour
 {
-    public sealed class CanvasScreen : MonoBehaviour { public string key; }
+    public string key;
 }
