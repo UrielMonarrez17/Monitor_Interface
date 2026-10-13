@@ -1456,6 +1456,10 @@ PrefabInstance:
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: 915cf92e3c82cd144ab809aac7ef8ca3, type: 3}
+    - target: {fileID: 1189049167286739045, guid: 25974bd0b0f0a024390cdff7609c30fa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -664
+      objectReference: {fileID: 0}
     - target: {fileID: 1263989787738033906, guid: 25974bd0b0f0a024390cdff7609c30fa, type: 3}
       propertyPath: m_Type
       value: 1
