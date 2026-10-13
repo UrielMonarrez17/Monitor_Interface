@@ -76,8 +76,8 @@ For a separate automated runtime smoke check, launch the built executable with `
 | --- | --- |
 | Figma | Add the shared Project 01 Figma link. Visual reference used here: the team's `Untitled.pdf`. |
 | Design justification | Add `docs/design.md` and link it here. |
-| Testing report | Add `docs/testing.md`, the tested build ID and real evidence, then link it here. |
-| AI-use record | Add `docs/ai-use.md` with this implementation assistance and the team's verification. |
+| Testing report | [Testing report](docs/testing.md). Functional verification and usability evaluation. |
+| AI-use record | [AI-use declaration](docs/ai-use.md). Complete responsible teammate names and related commit/PR links. |
 | Windows Release | Publish the complete build ZIP to [GitHub Releases](https://github.com/UrielMonarrez17/Monitor_Interface/releases), then add the specific release link. |
 | Demo video | Add a link to the video (maximum five minutes; everyone speaks). |
 

@@ -176,10 +176,10 @@ Across all three participant sessions, two persistent usability friction points 
 * **Implemented Fix:** Transformed the color palette from a high-glare white background with black icons to a dark mode layout (dark background with light text and high-contrast icons).
 * **Retest Outcome:** During retesting, participants experienced no eye strain, reported significantly higher visual comfort, and completed the checkout flow without brightness-related friction.
 
-### Problem 2: The date isn't accessible (Static Non-Clickable Date Affordance)
+### Problem 2: The date isn't accessible 
 * **Observed Behavior:** Users repeatedly clicked on the static date and time fields expecting an interactive picker, generating false inputs and confusion during reservation.
-* **Implemented Fix:** Replaced the static text display with a fully functional pop-up calendar widget and time selector, allowing users to choose and edit dates directly.
-* **Retest Outcome:** Users tapped the date field, opened the interactive calendar, adjusted their reservation effortlessly, and completed confirmation without errors.
+* **Implemented Fix:** Replaced the static text display with a day selector, allowing users to choose and edit dates directly.
+* **Retest Outcome:** Users tapped the date field, adjusted their reservation effortlessly, and completed confirmation without errors.
 
 ---
 
