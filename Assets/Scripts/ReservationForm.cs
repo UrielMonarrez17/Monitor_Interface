@@ -13,6 +13,7 @@ public class ReservationForm : MonoBehaviour
     public Button[] durationButtons;
     public int[] durations = { 30, 60, 90, 120 };
     public Button reviewButton;
+    public Dropdown reservationDay;
     public Color selectedColor = new Color32(105, 162, 184, 255);
     public bool[] Verified => contents.Select(t => t.isOn).ToArray();
 
@@ -23,8 +24,11 @@ public class ReservationForm : MonoBehaviour
         kitImage.sprite = app.Generic ? genericKit : questKit;
         contentsImage.sprite = app.Generic ? genericKit : questContents;
         controllerLabel.text = app.Generic ? "1 Controller" : "2 Controllers";
-        startDate.text = DateTime.Now.ToString("ddd, dd MMM yyyy");
-        estimatedReturn.text = QuestCheckoutApp.Format(DateTime.UtcNow.AddMinutes(app.Duration));
+        reservationDay.ClearOptions();
+        reservationDay.AddOptions(Enumerable.Range(0, 7).Select(i => (i == 0 ? "Today" : i == 1 ? "Tomorrow" : DateTime.Today.AddDays(i).ToString("ddd")) + DateTime.Today.AddDays(i).ToString(", dd MMM")).ToList());
+        reservationDay.SetValueWithoutNotify(Mathf.Clamp((app.ReservationDay - DateTime.Today).Days, 0, 6));
+        startDate.text = app.ReservationDay == DateTime.Today ? "Starts when you confirm" : "Pickup at 9:00 AM";
+        estimatedReturn.text = QuestCheckoutApp.Format(app.ReservationStart.AddMinutes(app.Duration));
         for (int i = 0; i < durationButtons.Length; i++)
         {
             bool selected = durations[i] == app.Duration;
